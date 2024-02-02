@@ -951,4 +951,5 @@ sv: 1
 wishlist: 1
 expired: 1
 circular: 1
-Grand Total: 1000
+GRAND TOTAL: 1000
+ELAPSED TIME: 0.078418 seconds.

@@ -3,6 +3,7 @@ Programa para calcular la frequencia de cada palabra en una lista de palabras le
 archivo.
 '''
 import sys
+import time
 from files import read_words_file
 
 # Constantes
@@ -38,11 +39,20 @@ def format_words_frequency(word_frequency_list, frequency_total):
         formatted_frequency = f'{word_frequency[0]}: {word_frequency[1]}\n'
         formatted_frequency_list.append(formatted_frequency)
 
-    formatted_total = f'Grand Total: {frequency_total}\n'
+    formatted_total = f'GRAND TOTAL: {frequency_total}\n'
     formatted_frequency_list.append(formatted_total)
     return formatted_frequency_list
 
+def get_elapsed_time(started):
+    '''
+    Funcion para calcular el tiempo de ejecución del programa
+    '''
+    finished = time.time()
+    return f'ELAPSED TIME: {(finished - started):.6f} seconds.\n'
+
 # Logica principal
+start_time = time.time()
+
 if len(sys.argv) < 2:
     print('Usage:\n', 'python word_count.py <file name>\n')
     sys.exit(OK_STATUS)
@@ -78,7 +88,19 @@ if status == 0:
             print(frequency_element, end='')
     except OSError as error:
         print(f'[ERROR] - An exception ocurred while processing results file: {error}')
+        elapsed_time = get_elapsed_time(start_time)
+        print (elapsed_time)
         sys.exit(ERROR_STATUS)
 
+elapsed_time = get_elapsed_time(start_time)
+
+try:
+    with open('WordCountResults.txt', '+at', encoding='UTF-8') as fd:
+        fd.writelines(elapsed_time)
+    print (elapsed_time)
+except OSError as error:
+    print(f'[ERROR] - An exception ocurred while processing results file: {error}')
+    print (elapsed_time)
+    sys.exit(ERROR_STATUS)
+
 sys.exit(status)
-    

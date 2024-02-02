@@ -4,6 +4,7 @@ Las estadisticas a calcular son la media, la mediana, la moda, la varianza y la
 desviación standard.
 '''
 import sys
+import time
 from files import read_numbers_file
 
 # Constantes
@@ -74,7 +75,16 @@ def get_variance_and_standard_deviation(numbers_list, mean_value):
     standard_deviation = pow(variance, 0.5)
     return variance, standard_deviation
 
+def get_elapsed_time(started):
+    '''
+    Funcion para calcular el tiempo de ejecución del programa
+    '''
+    finished = time.time()
+    return f'ELAPSED TIME: {(finished - started):.6f} seconds.\n'
+
 # Logica principal
+start_time = time.time()
+
 if len(sys.argv) < 2:
     print('Usage:\n', 'python compute_statistics.py <file name>\n')
     sys.exit(OK_STATUS)
@@ -112,7 +122,19 @@ if status == 0:
             print(line, end='')
     except OSError as error:
         print(f'[ERROR] - An exception ocurred while processing results file: {error}')
+        elapsed_time = get_elapsed_time(start_time)
+        print (elapsed_time)
         sys.exit(ERROR_STATUS)
 
+elapsed_time = get_elapsed_time(start_time)
+
+try:
+    with open('StatisticsResults.txt', '+at', encoding='UTF-8') as fd:
+        fd.writelines(elapsed_time)
+    print (elapsed_time)
+except OSError as error:
+    print(f'[ERROR] - An exception ocurred while processing results file: {error}')
+    print (elapsed_time)
+    sys.exit(ERROR_STATUS)
+
 sys.exit(status)
-    

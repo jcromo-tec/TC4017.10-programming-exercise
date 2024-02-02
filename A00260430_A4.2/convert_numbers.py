@@ -3,6 +3,7 @@ Programa para desplegar una lista números leidos de un archivo en formato binar
 hexadecimal.
 '''
 import sys
+import time
 from files import read_numbers_file
 
 # Constantes
@@ -48,7 +49,16 @@ def format_numbers(numbers_list):
         formatted_numbers_list.append(formatted_number)
     return formatted_numbers_list
 
+def get_elapsed_time(started):
+    '''
+    Funcion para calcular el tiempo de ejecución del programa
+    '''
+    finished = time.time()
+    return f'ELAPSED TIME: {(finished - started):.6f} seconds.\n'
+
 # Logica principal
+start_time = time.time()
+
 if len(sys.argv) < 2:
     print('Usage:\n', 'python convert_numbers.py <file name>\n')
     sys.exit(OK_STATUS)
@@ -81,6 +91,19 @@ if status == 0:
             print(converted_number, end='')
     except OSError as error:
         print(f'[ERROR] - An exception ocurred while processing results file: {error}')
+        elapsed_time = get_elapsed_time(start_time)
+        print (elapsed_time)
         sys.exit(ERROR_STATUS)
+
+elapsed_time = get_elapsed_time(start_time)
+
+try:
+    with open('ConvertionResults.txt', '+at', encoding='UTF-8') as fd:
+        fd.writelines(elapsed_time)
+    print (elapsed_time)
+except OSError as error:
+    print(f'[ERROR] - An exception ocurred while processing results file: {error}')
+    print (elapsed_time)
+    sys.exit(ERROR_STATUS)
 
 sys.exit(status)
