@@ -1,0 +1,10 @@
+uno
+dos
+tres
+..
+4
+5
+seis
+siete
+ocho8
+nue9ve

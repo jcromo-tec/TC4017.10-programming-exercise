@@ -1,0 +1,4 @@
+Buenos dias a todos ustedes. Este es un momento historico!
+En este dia 1 de febrero del 2024 se ha creado un programa
+para determinar la frequencia de palabras, que sin duda
+sera considerado como el hayazgo del siglo 21.
